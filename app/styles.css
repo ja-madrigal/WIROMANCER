@@ -122,15 +122,12 @@ select {
 
 .document-actions {
   position: absolute;
-  left: 12px;
+  right: 56px;
   top: 12px;
   bottom: 12px;
-  display: grid;
-  grid-template-columns: 132px 58px 148px 54px 54px;
-  grid-auto-rows: 32px;
-  align-content: center;
+  display: flex;
+  align-items: center;
   gap: 6px;
-  max-width: 410px;
 }
 
 .document-name,
@@ -185,32 +182,13 @@ select {
 .doc-button {
   padding: 0 8px;
   cursor: pointer;
+  min-width: 68px;
 }
 
 .doc-button:hover {
   border-color: rgba(47, 103, 233, 0.28);
   background: var(--blue-soft);
   color: var(--blue);
-}
-
-#saveDocumentBtn {
-  grid-column: 1;
-}
-
-#loadDocumentBtn {
-  grid-column: 2;
-}
-
-#resetDocumentBtn {
-  grid-column: 3;
-}
-
-#exportJsonBtn {
-  grid-column: 4;
-}
-
-#importJsonBtn {
-  grid-column: 5;
 }
 
 .ascii-title {

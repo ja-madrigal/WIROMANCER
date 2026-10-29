@@ -16,9 +16,7 @@
   const zoomResetBtn = document.querySelector("#zoomResetBtn");
   const emptyInspector = document.querySelector("#emptyInspector");
   const inspector = document.querySelector("#inspector");
-  const documentName = document.querySelector("#documentName");
   const saveState = document.querySelector("#saveState");
-  const documentSelect = document.querySelector("#documentSelect");
   const importJsonInput = document.querySelector("#importJsonInput");
   const fields = {
     name: document.querySelector("#fieldName"),
@@ -122,6 +120,7 @@
   }
 
   function setSaveState(state, label) {
+    if (!saveState) return;
     saveState.textContent = label;
     saveState.classList.toggle("dirty", state === "dirty");
     saveState.classList.toggle("saving", state === "saving");
@@ -171,7 +170,6 @@
   function applyDocumentSnapshot(snapshot, options = {}) {
     objects = normalizeImportedObjects(snapshot.objects);
     currentDocumentName = snapshot.name || options.fallbackName || "Untitled";
-    documentName.value = currentDocumentName;
     selectOnly(objects.at(-1)?.id || null);
     history = [];
     future = [];
@@ -179,37 +177,8 @@
     if (options.autosave !== false) saveAutosave();
   }
 
-  function readSavedDocuments() {
-    try {
-      const parsed = JSON.parse(localStorage.getItem(storageKeys.documents) || "{}");
-      return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
-    } catch {
-      return {};
-    }
-  }
-
-  function writeSavedDocuments(documents) {
-    localStorage.setItem(storageKeys.documents, JSON.stringify(documents));
-    renderDocumentSelect();
-  }
-
-  function renderDocumentSelect() {
-    const documents = readSavedDocuments();
-    const selectedName = documentSelect.value;
-    documentSelect.innerHTML = `<option value="">Saved documents</option>`;
-    Object.keys(documents).sort((a, b) => a.localeCompare(b)).forEach((name) => {
-      const option = document.createElement("option");
-      option.value = name;
-      option.textContent = name;
-      documentSelect.append(option);
-    });
-    if (selectedName && documents[selectedName]) documentSelect.value = selectedName;
-  }
-
   function saveAutosave() {
     try {
-      currentDocumentName = documentName.value.trim() || "Untitled";
-      documentName.value = currentDocumentName;
       localStorage.setItem(storageKeys.autosave, JSON.stringify(documentSnapshot(currentDocumentName)));
       setSaveState("saved", "Saved");
     } catch {
@@ -244,45 +213,40 @@
     }
   }
 
-  function saveNamedDocument() {
-    currentDocumentName = documentName.value.trim() || "Untitled";
-    documentName.value = currentDocumentName;
-    const documents = readSavedDocuments();
-    documents[currentDocumentName] = documentSnapshot(currentDocumentName);
-    writeSavedDocuments(documents);
-    saveAutosave();
-    documentSelect.value = currentDocumentName;
-  }
-
-  function loadNamedDocument() {
-    const name = documentSelect.value;
-    if (!name) return;
-    const documents = readSavedDocuments();
-    if (!documents[name]) return;
-    saveHistory();
-    applyDocumentSnapshot(documents[name]);
-  }
-
   function resetToStarter() {
+    if (!window.confirm("Reset the canvas to the starter document? This will clear your current work.")) return;
     saveHistory();
     localStorage.removeItem(storageKeys.autosave);
     objects = sample.starterDocument(tools.createObject, uid);
     selectOnly(objects.at(-1)?.id || null);
     currentDocumentName = "Untitled";
-    documentName.value = currentDocumentName;
     setTool("select");
     saveAutosave();
   }
 
-  function exportJsonDocument() {
-    const snapshot = documentSnapshot(documentName.value.trim() || "Untitled");
+  async function saveDocumentFile() {
+    const snapshot = documentSnapshot(currentDocumentName);
     const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: "application/json" });
-    const link = document.createElement("a");
     const filename = snapshot.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "wiromancer";
-    link.href = URL.createObjectURL(blob);
-    link.download = `${filename}.wiromancer.json`;
-    link.click();
-    URL.revokeObjectURL(link.href);
+    const suggestedName = `${filename}.wiromancer.json`;
+
+    if (window.showSaveFilePicker) {
+      try {
+        const handle = await window.showSaveFilePicker({
+          suggestedName,
+          types: [{ description: "Wiromancer document", accept: { "application/json": [".wiromancer.json", ".json"] } }]
+        });
+        const writable = await handle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+      } catch (error) {
+        if (error.name === "AbortError") return;
+        downloadText(suggestedName, blob, "application/json");
+      }
+    } else {
+      downloadText(suggestedName, blob, "application/json");
+    }
+    saveAutosave();
   }
 
   function exportOptions() {
@@ -308,7 +272,7 @@
 
   function exportSelectedFormat() {
     const format = document.querySelector("#exportFormat").value;
-    const baseName = (documentName.value.trim() || "wiromancer")
+    const baseName = (currentDocumentName || "wiromancer")
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "") || "wiromancer";
@@ -331,7 +295,7 @@
       saveHistory();
       const fallbackName = file.name.replace(/\.wiromancer\.json$/i, "").replace(/\.json$/i, "") || "Imported";
       applyDocumentSnapshot(snapshot, { fallbackName });
-      saveNamedDocument();
+      saveAutosave();
     } catch {
       setSaveState("error", "Import error");
     } finally {
@@ -967,16 +931,10 @@
   });
   document.querySelector("#undoBtn").addEventListener("click", undo);
   document.querySelector("#redoBtn").addEventListener("click", redo);
-  document.querySelector("#saveDocumentBtn").addEventListener("click", saveNamedDocument);
-  document.querySelector("#loadDocumentBtn").addEventListener("click", loadNamedDocument);
+  document.querySelector("#saveDocumentBtn").addEventListener("click", saveDocumentFile);
+  document.querySelector("#loadDocumentBtn").addEventListener("click", () => importJsonInput.click());
   document.querySelector("#resetDocumentBtn").addEventListener("click", resetToStarter);
-  document.querySelector("#exportJsonBtn").addEventListener("click", exportJsonDocument);
-  document.querySelector("#importJsonBtn").addEventListener("click", () => importJsonInput.click());
   importJsonInput.addEventListener("change", () => importJsonDocument(importJsonInput.files[0]));
-  documentName.addEventListener("input", () => {
-    currentDocumentName = documentName.value.trim() || "Untitled";
-    scheduleAutosave();
-  });
   document.querySelector("#zoomOutBtn").addEventListener("click", () => setZoom(zoom - 0.25));
   document.querySelector("#zoomInBtn").addEventListener("click", () => setZoom(zoom + 0.25));
   zoomResetBtn.addEventListener("click", () => setZoom(1.25));
@@ -1258,11 +1216,9 @@
 
   createToolButtons();
   updateZoomUi();
-  renderDocumentSelect();
   if (!loadAutosave()) {
     objects = sample.starterDocument(tools.createObject, uid);
     selectOnly(objects.at(-1).id);
-    documentName.value = currentDocumentName;
     setTool("select");
     saveAutosave();
   }
