@@ -80,7 +80,7 @@
     return rows;
   }
 
-  function exportAscii(objects, columns, rows) {
+  function exportAscii(objects, columns, rows, options = {}) {
     const grid = Array.from({ length: rows }, () => Array.from({ length: columns }, () => " "));
     objects.forEach((object) => {
       drawObject(object).forEach((row, rowIndex) => {
@@ -93,10 +93,20 @@
         });
       });
     });
-    return grid.map((row) => row.join("").trimEnd()).join("\n").replace(/\s+$/g, "");
+    const fixedOutput = grid.map((row) => row.join("")).join("\n");
+    return options.trim === false ? fixedOutput : trimAscii(fixedOutput);
   }
 
-  const api = { drawObject, boxLines, exportAscii };
+  function trimAscii(output) {
+    const rows = output.split("\n");
+    while (rows.length && !rows[0].trim()) rows.shift();
+    while (rows.length && !rows.at(-1).trim()) rows.pop();
+    if (!rows.length) return "";
+    const left = Math.min(...rows.filter((row) => row.trim()).map((row) => row.search(/\S/)));
+    return rows.map((row) => row.slice(left).trimEnd()).join("\n");
+  }
+
+  const api = { drawObject, boxLines, exportAscii, trimAscii };
   root.WiromancerAscii = api;
 
   if (typeof module !== "undefined") {

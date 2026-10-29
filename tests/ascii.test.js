@@ -34,8 +34,24 @@ test("exports positioned objects into one ASCII canvas", () => {
   ], 16, 6);
 
   assert.equal(output, [
-    " Logo",
+    "Logo",
     "",
-    " [ Go ]"
+    "[ Go ]"
   ].join("\n"));
+});
+
+test("trims empty canvas space by default", () => {
+  const output = exportAscii([
+    { kind: "text", x: 4, y: 3, w: 4, h: 1, text: "Logo" }
+  ], 12, 8);
+
+  assert.equal(output, "Logo");
+});
+
+test("can export the fixed canvas without trimming", () => {
+  const output = exportAscii([
+    { kind: "text", x: 2, y: 2, w: 4, h: 1, text: "Logo" }
+  ], 5, 3, { trim: false });
+
+  assert.equal(output, "     \n Logo\n     ");
 });

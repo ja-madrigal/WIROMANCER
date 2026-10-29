@@ -12,6 +12,7 @@
   const statusTool = document.querySelector("#statusTool");
   const cursorStatus = document.querySelector("#cursorStatus");
   const copyStatus = document.querySelector("#copyStatus");
+  const exportScope = document.querySelector("#exportScope");
   const zoomResetBtn = document.querySelector("#zoomResetBtn");
   const emptyInspector = document.querySelector("#emptyInspector");
   const inspector = document.querySelector("#inspector");
@@ -282,6 +283,40 @@
     link.download = `${filename}.wiromancer.json`;
     link.click();
     URL.revokeObjectURL(link.href);
+  }
+
+  function exportOptions() {
+    return { trim: exportScope.value !== "fixed" };
+  }
+
+  function asciiText() {
+    return ascii.exportAscii(objects, config.columns, config.rows, exportOptions());
+  }
+
+  function markdownText() {
+    return "```text\n" + asciiText() + "\n```";
+  }
+
+  function downloadText(filename, content, type) {
+    const blob = new Blob([content], { type });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(link.href);
+  }
+
+  async function copyExport(content, label) {
+    try {
+      await navigator.clipboard.writeText(content);
+    } catch {
+      const buffer = document.querySelector("#clipboardBuffer");
+      buffer.value = content;
+      buffer.select();
+      document.execCommand("copy");
+    }
+    copyStatus.textContent = label;
+    setTimeout(() => copyStatus.textContent = "", 1800);
   }
 
   async function importJsonDocument(file) {
@@ -910,19 +945,10 @@
     });
   });
 
-  document.querySelector("#copyBtn").addEventListener("click", async () => {
-    const markdown = "```text\n" + ascii.exportAscii(objects, config.columns, config.rows) + "\n```";
-    try {
-      await navigator.clipboard.writeText(markdown);
-    } catch {
-      const buffer = document.querySelector("#clipboardBuffer");
-      buffer.value = markdown;
-      buffer.select();
-      document.execCommand("copy");
-    }
-    copyStatus.textContent = "Copied Markdown";
-    setTimeout(() => copyStatus.textContent = "", 1800);
-  });
+  document.querySelector("#copyBtn").addEventListener("click", () => copyExport(markdownText(), "Copied Markdown"));
+  document.querySelector("#copyAsciiBtn").addEventListener("click", () => copyExport(asciiText(), "Copied ASCII"));
+  document.querySelector("#exportTxtBtn").addEventListener("click", () => downloadText("wiromancer.txt", asciiText(), "text/plain"));
+  document.querySelector("#exportMdBtn").addEventListener("click", () => downloadText("wiromancer.md", markdownText(), "text/markdown"));
 
   document.querySelector("#duplicateBtn").addEventListener("click", duplicateSelected);
   document.querySelector("#deleteBtn").addEventListener("click", deleteSelected);

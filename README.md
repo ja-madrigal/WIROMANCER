@@ -37,9 +37,8 @@ That means the editor should prioritize:
 
 ## Near-Term Roadmap
 
-1. Direct text editing on the canvas.
-2. Save/load with local autosave.
-3. Keyboard nudging and duplicate.
-4. Marquee select and multi-select.
-5. Component registry and editable component props.
-6. Markdown import/export polish.
+1. Load optional custom component libraries.
+2. Generate Details-panel controls from component props.
+3. Import ASCII into editable-ish text blocks.
+4. Add a library manager for enabling, exporting, and replacing component sets.
+5. Refine the hand-crafted header and floating toolbar.

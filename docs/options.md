@@ -25,6 +25,10 @@ All persistence is local to the browser. Wiromancer does not send document data 
 - Align left/top/bottom/right: aligns selected objects to the shared selection edge.
 - Distribute horizontally/vertically: spaces three or more selected objects evenly between the outermost objects.
 - Copy Markdown: copies the current ASCII canvas inside a Markdown text code block.
+- Copy ASCII: copies the current ASCII output without a Markdown fence.
+- Export TXT: downloads the current ASCII output as `wiromancer.txt`.
+- Export MD: downloads the current ASCII output inside a Markdown code block as `wiromancer.md`.
+- Export size: uses content bounds by default, or the full fixed 400×300 canvas when selected.
 
 ## Object Placement
 

@@ -144,15 +144,17 @@ Acceptance:
 
 Goal: make Wiromancer useful in real workflows.
 
+Status: partially complete.
+
 Features:
 
 - Copy Markdown.
-- Copy raw ASCII.
-- Export `.txt`.
-- Export `.md`.
+- Copy raw ASCII. Done.
+- Export `.txt`. Done.
+- Export `.md`. Done.
 - Import ASCII as editable-ish text blocks.
-- Trim export to content bounds.
-- Optional fixed canvas export.
+- Trim export to content bounds. Done.
+- Optional fixed canvas export. Done.
 
 Acceptance:
 
@@ -197,7 +199,7 @@ Near-term code structure to add:
 
 ## Immediate Next Slice
 
-Start Milestone 4 component-system groundwork.
+Continue Milestone 4 component-system work.
 
 Scope:
 
@@ -215,13 +217,13 @@ The core component registry now exists. The next constraint is loading external 
 Primary working folder:
 
 ```text
-/Users/jam/Documents/Codex/2026-05-22/can-you-see-https-www-mockdown
+/Users/jam/Projects/WIROMANCER
 ```
 
-Clean named copy, if present:
+Previous working location, now retired:
 
 ```text
-/Users/jam/Documents/Codex/Wiromancer
+/Users/jam/Documents/Codex/2026-05-22/can-you-see-https-www-mockdown
 ```
 
 If path permissions get weird, work in the primary working folder first, then mirror to the clean named copy when needed.

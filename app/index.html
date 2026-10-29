@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Wiromancer</title>
-    <link rel="stylesheet" href="styles.css?v=20260815-component-registry">
+    <link rel="stylesheet" href="styles.css?v=20261029-export-polish">
   </head>
   <body>
     <div class="app-shell">
@@ -72,6 +72,13 @@
           <button class="icon-button" id="distributeHorizontalBtn" title="Distribute horizontally" aria-label="Distribute horizontally">↔</button>
           <button class="icon-button" id="distributeVerticalBtn" title="Distribute vertically" aria-label="Distribute vertically">↕</button>
           <button class="copy-button" id="copyBtn" type="button">▣ Copy Markdown</button>
+          <button class="copy-button" id="copyAsciiBtn" type="button">▣ Copy ASCII</button>
+          <button class="copy-button" id="exportTxtBtn" type="button">↓ Export TXT</button>
+          <button class="copy-button" id="exportMdBtn" type="button">↓ Export MD</button>
+          <select class="export-scope" id="exportScope" aria-label="Export size">
+            <option value="trim">Content bounds</option>
+            <option value="fixed">Fixed 400×300 canvas</option>
+          </select>
         </div>
       </main>
 
@@ -130,11 +137,11 @@
 
     <textarea id="clipboardBuffer" aria-hidden="true" tabindex="-1"></textarea>
     <input id="importJsonInput" type="file" accept=".wiromancer.json,application/json" hidden>
-    <script src="src/config.js?v=20260815-component-registry"></script>
-    <script src="src/components.js?v=20260815-component-registry"></script>
-    <script src="src/tools.js?v=20260815-component-registry"></script>
-    <script src="src/ascii.js?v=20260815-component-registry"></script>
-    <script src="src/sample.js?v=20260815-component-registry"></script>
-    <script src="src/main.js?v=20260815-component-registry"></script>
+    <script src="src/config.js?v=20261029-export-polish"></script>
+    <script src="src/components.js?v=20261029-export-polish"></script>
+    <script src="src/tools.js?v=20261029-export-polish"></script>
+    <script src="src/ascii.js?v=20261029-export-polish"></script>
+    <script src="src/sample.js?v=20261029-export-polish"></script>
+    <script src="src/main.js?v=20261029-export-polish"></script>
   </body>
 </html>
