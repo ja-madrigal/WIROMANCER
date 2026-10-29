@@ -621,6 +621,7 @@
     fields.name.value = object.name;
     fields.text.value = object.text;
     fields.style.value = object.style || "body";
+    fields.style.className = `style-${fields.style.value}`;
     fields.x.value = object.x;
     fields.y.value = object.y;
     fields.w.value = object.w;
@@ -904,6 +905,7 @@
       object.name = fields.name.value || object.name;
       object.text = fields.text.value;
       object.style = fields.style.value;
+      fields.style.className = `style-${fields.style.value}`;
       object.x = clamp(Number(fields.x.value) || 1, 1, config.columns);
       object.y = clamp(Number(fields.y.value) || 1, 1, config.rows);
       object.w = clamp(Number(fields.w.value) || 1, 1, config.columns - object.x + 1);
