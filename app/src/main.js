@@ -9,9 +9,6 @@
   const viewport = document.querySelector("#viewport");
   const layersEl = document.querySelector("#layers");
   const layerCount = document.querySelector("#layerCount");
-  const statusTool = document.querySelector("#statusTool");
-  const cursorStatus = document.querySelector("#cursorStatus");
-  const copyStatus = document.querySelector("#copyStatus");
   const exportScope = document.querySelector("#exportScope");
   const zoomResetBtn = document.querySelector("#zoomResetBtn");
   const emptyInspector = document.querySelector("#emptyInspector");
@@ -284,8 +281,8 @@
     };
     const selected = exports[format] || exports.md;
     downloadText(`${baseName}.${selected.extension}`, selected.content, selected.type);
-    copyStatus.textContent = `Saved ${selected.extension.toUpperCase()}`;
-    setTimeout(() => copyStatus.textContent = "", 1800);
+    setSaveState("saved", `Exported ${selected.extension.toUpperCase()}`);
+    setTimeout(() => setSaveState("saved", "Saved"), 1800);
   }
 
   async function importJsonDocument(file) {
@@ -309,7 +306,6 @@
   }
 
   function updateToolUi() {
-    statusTool.textContent = activeTool.toUpperCase();
     document.querySelectorAll(".tool").forEach((button) => {
       button.classList.toggle("active", button.dataset.tool === activeTool);
     });
@@ -775,7 +771,6 @@
 
   function handlePointerMove(event) {
     const point = snapPoint(event);
-    cursorStatus.textContent = `Ln ${point.y}, Col ${point.x}`;
     if (marquee) {
       updateMarquee(point);
       return;

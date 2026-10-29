@@ -95,7 +95,7 @@ select {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: 104px minmax(0, 1fr) 42px;
+  grid-template-rows: 104px minmax(0, 1fr);
   height: 100vh;
   background: var(--paper);
   overflow: hidden;
@@ -103,8 +103,7 @@ select {
 
 .app-header,
 .sidebar,
-.panel,
-.status-bar {
+.panel {
   background: var(--paper);
   border-color: var(--line);
 }
@@ -634,33 +633,6 @@ select {
   background: white;
   border-radius: 2px;
   cursor: nwse-resize;
-}
-
-.status-bar {
-  grid-column: 1 / -1;
-  grid-row: 3;
-  display: grid;
-  grid-template-columns: auto auto 1fr auto;
-  align-items: center;
-  gap: 14px;
-  padding: 0 18px;
-  border-top: 1px solid var(--line);
-  background: var(--paper);
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 12px;
-}
-
-.tool-pill {
-  background: var(--blue);
-  color: white;
-  padding: 4px 9px;
-  border-radius: 2px;
-  font-weight: 700;
-}
-
-.canvas-size {
-  justify-self: end;
 }
 
 .panel {
