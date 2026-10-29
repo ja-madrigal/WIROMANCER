@@ -306,7 +306,7 @@
     URL.revokeObjectURL(link.href);
   }
 
-  function saveAsExport() {
+  function exportSelectedFormat() {
     const format = document.querySelector("#exportFormat").value;
     const baseName = (documentName.value.trim() || "wiromancer")
       .toLowerCase()
@@ -949,7 +949,7 @@
     });
   });
 
-  document.querySelector("#saveAsBtn").addEventListener("click", saveAsExport);
+  document.querySelector("#exportBtn").addEventListener("click", exportSelectedFormat);
 
   document.querySelector("#duplicateBtn").addEventListener("click", duplicateSelected);
   document.querySelector("#deleteBtn").addEventListener("click", deleteSelected);

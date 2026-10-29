@@ -282,7 +282,14 @@ select {
   border-color: rgba(47, 103, 233, 0.18);
 }
 
-.save-button {
+.export-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.export-button {
   margin: 14px 14px 10px;
   border: 0;
   background: var(--blue);
@@ -404,7 +411,7 @@ select {
   color: var(--blue);
 }
 
-.save-button {
+.export-button {
   width: auto;
   margin: 0;
   padding: 0 12px;
