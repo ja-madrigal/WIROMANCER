@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Share Tech Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("assets/fonts/ShareTechMono-Regular.ttf") format("truetype");
+}
+
 :root {
   /* GADS foundation: neutral surfaces, 8px rhythm, restrained semantic color. */
   --bg: #f4f4f2;
@@ -46,7 +54,7 @@
   --font-caption-line-height: 20px;
   --mono: var(--sans);
   --brand-mono: "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --wire-mono: "Share Tech Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --wire-mono: "Share Tech Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --sans: "General Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
