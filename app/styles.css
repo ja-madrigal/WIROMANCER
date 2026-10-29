@@ -95,7 +95,7 @@ select {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: 104px minmax(0, 1fr);
+  grid-template-rows: 0 minmax(0, 1fr);
   height: 100vh;
   background: var(--paper);
   overflow: hidden;
@@ -112,26 +112,27 @@ select {
   grid-column: 1 / -1;
   grid-row: 1;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  position: relative;
+  position: absolute;
+  inset: 0;
+  height: 0;
+  z-index: 8;
   min-width: 0;
-  border-bottom: 1px solid var(--line);
-  padding: 12px 56px;
+  border: 0;
+  padding: 0;
+  pointer-events: none;
 }
 
 .app-header .icon-button {
   position: absolute;
   right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 16px;
+  pointer-events: auto;
 }
 
 .document-actions {
-  position: absolute;
-  right: 56px;
-  top: 12px;
-  bottom: 12px;
+  position: static;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -199,6 +200,11 @@ select {
 }
 
 .ascii-title {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  z-index: 1;
+  transform: translateX(-50%);
   margin: 0;
   color: var(--blue);
   font-family: var(--brand-mono);
@@ -208,6 +214,7 @@ select {
   letter-spacing: 0;
   text-align: center;
   white-space: pre;
+  pointer-events: none;
 }
 
 .sidebar {
@@ -365,7 +372,7 @@ select {
   bottom: 18px;
   z-index: 4;
   transform: translateX(-50%);
-  max-width: min(760px, calc(100% - 32px));
+  max-width: min(920px, calc(100% - 32px));
   padding: 8px;
   border: 1px solid var(--line);
   border-radius: 6px;
