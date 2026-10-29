@@ -14,6 +14,7 @@ Wiromancer is a funky ASCII wireframe editor for sketching interface ideas on a 
 - Component registry tests live in `tests/components.test.js`.
 - User-facing controls are documented in `docs/options.md`.
 - Component registry notes are documented in `docs/components.md`.
+- Project direction and longer-term ideas are documented in `docs/project-direction.md`.
 
 ## Local Checks
 

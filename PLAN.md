@@ -31,6 +31,7 @@ The prototype is now organized as a small static project.
 - `tests/components.test.js`: component registry tests.
 - `README.md`: project summary and roadmap.
 - `docs/project-notes.md`: engineering notes.
+- `docs/project-direction.md`: durable product direction, decisions, hosting thoughts, and ideas.
 - `docs/options.md`: user-facing options and controls reference.
 - `docs/components.md`: component registry reference.
 
