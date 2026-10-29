@@ -499,6 +499,34 @@ select {
   white-space: pre;
 }
 
+.object.style-heading,
+.object-measurer.style-heading,
+.inline-editor.style-heading {
+  font-size: var(--font-h3-size);
+  line-height: var(--font-h3-line-height);
+}
+
+.object.style-label,
+.object-measurer.style-label,
+.inline-editor.style-label {
+  font-size: var(--font-body-size);
+  line-height: var(--font-body-line-height);
+}
+
+.object.style-body,
+.object-measurer.style-body,
+.inline-editor.style-body {
+  font-size: var(--font-button-size);
+  line-height: var(--font-button-line-height);
+}
+
+.object.style-caption,
+.object-measurer.style-caption,
+.inline-editor.style-caption {
+  font-size: var(--font-caption-size);
+  line-height: var(--font-caption-line-height);
+}
+
 .object.selected {
   background: rgba(47, 103, 233, 0.08);
   outline: 2px solid var(--blue);

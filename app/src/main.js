@@ -388,23 +388,25 @@
 
   function objectBounds(object) {
     const footprint = objectFootprint(object);
+    const renderedSize = renderedFootprintSize(footprint, object.style || "body");
     return {
       left: object.x,
-      right: object.x + footprint.width - 1,
+      right: object.x + Math.max(footprint.width, Math.ceil(renderedSize.width / config.cellWidth)) - 1,
       top: object.y,
-      bottom: object.y + footprint.height - 1,
-      width: footprint.width,
-      height: footprint.height
+      bottom: object.y + Math.max(footprint.height, Math.ceil(renderedSize.height / config.cellHeight)) - 1,
+      width: Math.max(footprint.width, Math.ceil(renderedSize.width / config.cellWidth)),
+      height: Math.max(footprint.height, Math.ceil(renderedSize.height / config.cellHeight))
     };
   }
 
-  function renderedFootprintSize(footprint) {
+  function renderedFootprintSize(footprint, style = "body") {
     const measurer = renderedFootprintSize.node || document.createElement("div");
     if (!renderedFootprintSize.node) {
       measurer.className = "object-measurer";
       document.body.append(measurer);
       renderedFootprintSize.node = measurer;
     }
+    measurer.className = `object-measurer style-${style}`;
     measurer.textContent = footprint.lines.join("\n");
     const rect = measurer.getBoundingClientRect();
     return {
@@ -415,9 +417,10 @@
 
   function renderCanvasObject(object) {
     const footprint = objectFootprint(object);
-    const renderedSize = renderedFootprintSize(footprint);
+    const style = object.style || "body";
+    const renderedSize = renderedFootprintSize(footprint, style);
     const el = document.createElement("div");
-    el.className = "object";
+    el.className = `object style-${style}`;
     el.dataset.id = object.id;
     el.classList.toggle("selected", isSelected(object.id));
     el.style.left = `${(object.x - 1) * config.cellWidth}px`;
@@ -826,7 +829,7 @@
     setTool("select");
 
     const textarea = document.createElement("textarea");
-    textarea.className = "inline-editor";
+    textarea.className = `inline-editor style-${object.style || "body"}`;
     textarea.value = object.text || "";
     textarea.setAttribute("aria-label", `Edit ${object.name} text`);
     canvas.append(textarea);
