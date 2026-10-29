@@ -343,7 +343,10 @@
         button.type = "button";
         button.className = "tool";
         button.dataset.tool = id;
-        button.innerHTML = `<span class="tool-icon">${icon}</span><span>${label}</span>`;
+        const iconMarkup = id === "text"
+          ? `<span class="tool-icon tool-icon-image"><img src="assets/figma/text-annotation-toggle.svg" alt=""><img src="assets/figma/text-annotation-toggle-selected.svg" alt=""></span>`
+          : `<span class="tool-icon">${icon}</span>`;
+        button.innerHTML = `<span class="tool-rail" aria-hidden="true"></span>${iconMarkup}<span>${label}</span>`;
         button.addEventListener("click", () => setTool(id));
         target.append(button);
       });

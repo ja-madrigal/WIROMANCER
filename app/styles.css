@@ -317,14 +317,13 @@ select {
 }
 
 .tool {
-  display: grid;
-  grid-template-columns: 32px 1fr;
+  display: flex;
   align-items: center;
   height: 38px;
-  padding: 0 12px;
+  padding: 0 12px 0 0;
   border: 0;
-  border-radius: 5px;
-  background: transparent;
+  border-radius: 4px;
+  background: #fafafa;
   color: var(--ink);
   text-align: left;
   cursor: pointer;
@@ -335,16 +334,13 @@ select {
 }
 
 .tool:hover {
-  background: var(--surface-muted);
+  background: #dfe1e2;
   color: var(--ink);
 }
 
 .tool.active {
-  border-left: 3px solid #4c8dff;
-  background: #eaf0ff;
-  color: var(--blue);
-  padding-left: 9px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  background: #141515;
+  color: #d0ff00;
   font-size: 14px;
   font-weight: 400;
 }
@@ -352,13 +348,52 @@ select {
 .tool-icon {
   color: var(--muted);
   opacity: 1;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin: 0 8px 0 0;
   font-family: var(--sans);
-  font-size: 17px;
+  font-size: 14px;
+  line-height: 16px;
   text-align: center;
 }
 
 .tool.active .tool-icon {
-  color: var(--blue);
+  color: #d0ff00;
+}
+
+.tool-rail {
+  align-self: stretch;
+  flex: 0 0 4px;
+  margin-right: 16px;
+  background: transparent;
+}
+
+.tool.active .tool-rail {
+  background: #d0ff00;
+}
+
+.tool-icon-image {
+  display: grid;
+  place-items: center;
+}
+
+.tool-icon-image img {
+  grid-area: 1 / 1;
+  width: 16px;
+  height: 16px;
+}
+
+.tool-icon-image img:last-child {
+  display: none;
+}
+
+.tool.active .tool-icon-image img:first-child {
+  display: none;
+}
+
+.tool.active .tool-icon-image img:last-child {
+  display: block;
 }
 
 .mini-actions {
