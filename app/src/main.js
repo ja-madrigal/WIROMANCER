@@ -388,7 +388,7 @@
 
   function objectBounds(object) {
     const footprint = objectFootprint(object);
-    const renderedSize = renderedFootprintSize(footprint, object.style || "body");
+    const renderedSize = renderedFootprintSize(footprint, objectTextStyle(object));
     return {
       left: object.x,
       right: object.x + Math.max(footprint.width, Math.ceil(renderedSize.width / config.cellWidth)) - 1,
@@ -415,9 +415,13 @@
     };
   }
 
+  function objectTextStyle(object) {
+    return ["text", "pencil"].includes(object.kind) ? (object.style || "body") : "grid";
+  }
+
   function renderCanvasObject(object) {
     const footprint = objectFootprint(object);
-    const style = object.style || "body";
+    const style = objectTextStyle(object);
     const renderedSize = renderedFootprintSize(footprint, style);
     const el = document.createElement("div");
     el.className = `object style-${style}`;
@@ -624,12 +628,13 @@
     fields.name.value = object.name;
     fields.text.value = object.text;
     fields.style.value = object.style || "body";
-    fields.style.className = `style-${fields.style.value}`;
+    fields.style.className = `style-${objectTextStyle(object)}`;
     fields.x.value = object.x;
     fields.y.value = object.y;
     fields.w.value = object.w;
     fields.h.value = object.h;
     fields.text.disabled = !isTextEditable(object);
+    fields.style.disabled = !["text", "pencil"].includes(object.kind);
   }
 
   function render() {
@@ -829,7 +834,7 @@
     setTool("select");
 
     const textarea = document.createElement("textarea");
-    textarea.className = `inline-editor style-${object.style || "body"}`;
+    textarea.className = `inline-editor style-${objectTextStyle(object)}`;
     textarea.value = object.text || "";
     textarea.setAttribute("aria-label", `Edit ${object.name} text`);
     canvas.append(textarea);
@@ -907,8 +912,10 @@
       if (!object) return;
       object.name = fields.name.value || object.name;
       object.text = fields.text.value;
-      object.style = fields.style.value;
-      fields.style.className = `style-${fields.style.value}`;
+      if (["text", "pencil"].includes(object.kind)) {
+        object.style = fields.style.value;
+      }
+      fields.style.className = `style-${objectTextStyle(object)}`;
       object.x = clamp(Number(fields.x.value) || 1, 1, config.columns);
       object.y = clamp(Number(fields.y.value) || 1, 1, config.rows);
       object.w = clamp(Number(fields.w.value) || 1, 1, config.columns - object.x + 1);
