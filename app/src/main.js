@@ -306,16 +306,20 @@
     URL.revokeObjectURL(link.href);
   }
 
-  async function copyExport(content, label) {
-    try {
-      await navigator.clipboard.writeText(content);
-    } catch {
-      const buffer = document.querySelector("#clipboardBuffer");
-      buffer.value = content;
-      buffer.select();
-      document.execCommand("copy");
-    }
-    copyStatus.textContent = label;
+  function saveAsExport() {
+    const format = document.querySelector("#exportFormat").value;
+    const baseName = (documentName.value.trim() || "wiromancer")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "") || "wiromancer";
+    const exports = {
+      md: { extension: "md", content: markdownText(), type: "text/markdown" },
+      txt: { extension: "txt", content: asciiText(), type: "text/plain" },
+      ascii: { extension: "ascii", content: asciiText(), type: "text/plain" }
+    };
+    const selected = exports[format] || exports.md;
+    downloadText(`${baseName}.${selected.extension}`, selected.content, selected.type);
+    copyStatus.textContent = `Saved ${selected.extension.toUpperCase()}`;
     setTimeout(() => copyStatus.textContent = "", 1800);
   }
 
@@ -945,10 +949,7 @@
     });
   });
 
-  document.querySelector("#copyBtn").addEventListener("click", () => copyExport(markdownText(), "Copied Markdown"));
-  document.querySelector("#copyAsciiBtn").addEventListener("click", () => copyExport(asciiText(), "Copied ASCII"));
-  document.querySelector("#exportTxtBtn").addEventListener("click", () => downloadText("wiromancer.txt", asciiText(), "text/plain"));
-  document.querySelector("#exportMdBtn").addEventListener("click", () => downloadText("wiromancer.md", markdownText(), "text/markdown"));
+  document.querySelector("#saveAsBtn").addEventListener("click", saveAsExport);
 
   document.querySelector("#duplicateBtn").addEventListener("click", duplicateSelected);
   document.querySelector("#deleteBtn").addEventListener("click", deleteSelected);

@@ -71,10 +71,12 @@
           <button class="icon-button" id="alignRightBtn" title="Align right" aria-label="Align right">⇥</button>
           <button class="icon-button" id="distributeHorizontalBtn" title="Distribute horizontally" aria-label="Distribute horizontally">↔</button>
           <button class="icon-button" id="distributeVerticalBtn" title="Distribute vertically" aria-label="Distribute vertically">↕</button>
-          <button class="copy-button" id="copyBtn" type="button">▣ Copy Markdown</button>
-          <button class="copy-button" id="copyAsciiBtn" type="button">▣ Copy ASCII</button>
-          <button class="copy-button" id="exportTxtBtn" type="button">↓ Export TXT</button>
-          <button class="copy-button" id="exportMdBtn" type="button">↓ Export MD</button>
+          <button class="save-button" id="saveAsBtn" type="button">↓ Save As</button>
+          <select class="export-format" id="exportFormat" aria-label="Save as format">
+            <option value="md" selected>Markdown (.md)</option>
+            <option value="txt">Plain text (.txt)</option>
+            <option value="ascii">ASCII (.ascii)</option>
+          </select>
           <select class="export-scope" id="exportScope" aria-label="Export size">
             <option value="trim">Content bounds</option>
             <option value="fixed">Fixed 400×300 canvas</option>
