@@ -20,7 +20,32 @@
   --radius-md: 8px;
   --cell-w: 8px;
   --cell-h: 8px;
-  --mono: "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-hero-size: 64px;
+  --font-hero-weight: 300;
+  --font-hero-line-height: 76px;
+  --font-h1-size: 48px;
+  --font-h1-weight: 300;
+  --font-h1-line-height: 56px;
+  --font-h2-size: 40px;
+  --font-h2-weight: 300;
+  --font-h2-line-height: 46px;
+  --font-h3-size: 24px;
+  --font-h3-weight: 400;
+  --font-h3-line-height: 32px;
+  --font-h4-size: 20px;
+  --font-h4-weight: 400;
+  --font-h4-line-height: 28px;
+  --font-body-size: 16px;
+  --font-body-weight: 400;
+  --font-body-line-height: 24px;
+  --font-button-size: 14px;
+  --font-button-weight: 500;
+  --font-button-line-height: 24px;
+  --font-caption-size: 12px;
+  --font-caption-weight: 400;
+  --font-caption-line-height: 20px;
+  --mono: "Share Tech Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --wire-mono: "Share Tech Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   --sans: "General Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
@@ -438,7 +463,7 @@ select {
 .object {
   position: absolute;
   color: #315f9f;
-  font-family: var(--mono);
+  font-family: var(--wire-mono);
   font-size: 8px;
   line-height: var(--cell-h);
   white-space: pre;
@@ -452,7 +477,7 @@ select {
   left: -9999px;
   top: -9999px;
   color: transparent;
-  font-family: var(--mono);
+  font-family: var(--wire-mono);
   font-size: 8px;
   line-height: var(--cell-h);
   pointer-events: none;
@@ -495,10 +520,10 @@ select {
   border-radius: 3px;
   background: var(--blue);
   color: white;
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 16px;
+  font-family: var(--wire-mono);
+  font-size: var(--font-caption-size);
+  font-weight: var(--font-caption-weight);
+  line-height: var(--font-caption-line-height);
   pointer-events: none;
   text-overflow: ellipsis;
   transform-origin: 0 100%;
@@ -517,7 +542,7 @@ select {
   outline: 0;
   overflow: hidden;
   padding: 0 2px;
-  font-family: var(--mono);
+  font-family: var(--wire-mono);
   font-size: 8px;
   line-height: var(--cell-h);
   white-space: pre;
