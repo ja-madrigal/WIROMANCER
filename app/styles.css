@@ -607,8 +607,8 @@ select {
   bottom: 50px;
   z-index: 6;
   width: 314px;
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 8px;
   padding: 8px;
   border: 0;
@@ -625,6 +625,14 @@ select {
   background: var(--surface);
   box-shadow: 0 12px 30px rgba(41, 41, 39, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   overflow: hidden;
+}
+
+.layers-panel {
+  flex: 0 0 auto;
+}
+
+.details-panel {
+  flex: 1 1 auto;
 }
 
 .panel-heading {
@@ -655,7 +663,8 @@ select {
 
 .layers {
   overflow: auto;
-  height: calc(100% - 56px);
+  height: auto;
+  max-height: 214px;
   padding: 12px 10px;
   scrollbar-color: #bbb8b0 transparent;
 }
