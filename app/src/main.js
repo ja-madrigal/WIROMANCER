@@ -21,6 +21,7 @@
   const fields = {
     name: document.querySelector("#fieldName"),
     text: document.querySelector("#fieldText"),
+    style: document.querySelector("#fieldStyle"),
     x: document.querySelector("#fieldX"),
     y: document.querySelector("#fieldY"),
     w: document.querySelector("#fieldW"),
@@ -619,6 +620,7 @@
     }
     fields.name.value = object.name;
     fields.text.value = object.text;
+    fields.style.value = object.style || "body";
     fields.x.value = object.x;
     fields.y.value = object.y;
     fields.w.value = object.w;
@@ -901,6 +903,7 @@
       if (!object) return;
       object.name = fields.name.value || object.name;
       object.text = fields.text.value;
+      object.style = fields.style.value;
       object.x = clamp(Number(fields.x.value) || 1, 1, config.columns);
       object.y = clamp(Number(fields.y.value) || 1, 1, config.rows);
       object.w = clamp(Number(fields.w.value) || 1, 1, config.columns - object.x + 1);

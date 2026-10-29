@@ -220,11 +220,11 @@ select {
 .tool-scroll {
   height: 100%;
   overflow-y: auto;
-  padding: 10px 8px 18px;
-  border: 1px solid rgba(209, 206, 196, 0.82);
-  border-radius: 16px;
-  background: rgba(251, 250, 248, 0.94);
-  box-shadow: 0 12px 30px rgba(41, 41, 39, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  padding: 0 0 16px;
+  border: 1px solid #676767;
+  border-radius: 8px;
+  background: #fafafa;
+  box-shadow: none;
   scrollbar-color: #bbb8b0 transparent;
 }
 
@@ -232,13 +232,15 @@ select {
   position: sticky;
   top: 0;
   z-index: 1;
-  padding: var(--space-3) 14px var(--space-4);
-  background: var(--paper);
+  width: max-content;
+  margin: 16px 20px 16px;
+  padding: 2px 8px;
+  background: linear-gradient(to right, #dfe1e2, #fafafa);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 16px;
-  font-weight: 650;
-  line-height: 24px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .icon-button {
@@ -282,15 +284,15 @@ select {
 }
 
 .tool-section {
-  padding: var(--space-2) var(--space-2) var(--space-3);
+  padding: 0 20px 16px;
 }
 
 .tool-section h2,
 .panel-heading h2 {
-  margin: 0 0 10px;
+  margin: 0 0 2px;
   color: var(--muted);
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 400;
   line-height: 20px;
   text-transform: uppercase;
 }
@@ -619,11 +621,13 @@ select {
 }
 
 .panel-section {
+  position: relative;
   min-height: 0;
-  border: 1px solid rgba(209, 206, 196, 0.82);
-  border-radius: 16px;
-  background: var(--surface);
-  box-shadow: 0 12px 30px rgba(41, 41, 39, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  padding-top: 48px;
+  border: 1px solid #676767;
+  border-radius: 8px;
+  background: #fafafa;
+  box-shadow: none;
   overflow: hidden;
 }
 
@@ -636,36 +640,41 @@ select {
 }
 
 .panel-heading {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  right: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 56px;
-  padding: 0 18px;
-  border-bottom: 1px solid var(--line);
+  height: 24px;
+  padding: 0;
 }
 
 .panel-heading h2 {
   margin: 0;
+  padding: 2px 8px;
+  background: linear-gradient(to right, #dfe1e2, #fafafa);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 400;
-  letter-spacing: 0;
-  line-height: 24px;
+  line-height: 20px;
   text-transform: none;
 }
 
 .panel-heading span {
   color: var(--muted);
   font-family: var(--sans);
-  font-size: 14px;
+  font-size: 12px;
+  line-height: 20px;
 }
 
 .layers {
   overflow: auto;
   height: auto;
   max-height: 214px;
-  padding: 12px 10px;
+  padding: 0 20px 16px;
   scrollbar-color: #bbb8b0 transparent;
 }
 
@@ -766,7 +775,7 @@ select {
 
 .inspector,
 .inspector-empty {
-  padding: 20px 18px;
+  padding: 0 20px 20px;
 }
 
 .inspector-empty {
@@ -778,34 +787,40 @@ select {
 
 .inspector {
   display: grid;
-  gap: 14px;
+  gap: 8px;
 }
 
 .inspector label {
   display: grid;
-  gap: 6px;
+  gap: 2px;
 }
 
 .inspector span {
-  color: var(--muted);
+  color: #5d6265;
   font-size: 14px;
   font-weight: 400;
   letter-spacing: 0;
   line-height: 20px;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
-.inspector input {
+.inspector input,
+.inspector select {
   width: 100%;
-  border: 1px solid var(--line);
-  background: white;
-  color: var(--ink);
-  height: 36px;
-  border-radius: 5px;
-  padding: 0 10px;
+  border: 1px solid #dfe1e2;
+  background: transparent;
+  color: #2c2f30;
+  height: 34px;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
 }
 
-.inspector input:focus {
+.inspector input:focus,
+.inspector select:focus {
   border-color: var(--blue);
   outline: 2px solid rgba(47, 103, 233, 0.16);
 }
@@ -813,7 +828,37 @@ select {
 .field-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 8px;
+}
+
+.field-grid label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  height: 34px;
+  border: 1px solid #dfe1e2;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.field-grid span {
+  flex: 0 0 auto;
+  color: #2c2f30;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.field-grid input {
+  min-width: 0;
+  height: 24px;
+  border: 0;
+  padding: 0;
+  color: #5d6265;
+}
+
+.field-grid input:focus {
+  outline: 0;
 }
 
 #clipboardBuffer {
