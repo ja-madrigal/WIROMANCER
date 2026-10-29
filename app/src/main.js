@@ -437,7 +437,22 @@
     el.style.top = `${(object.y - 1) * config.cellHeight}px`;
     el.style.width = `${renderedSize.width}px`;
     el.style.minHeight = `${renderedSize.height}px`;
-    el.textContent = footprint.lines.join("\n");
+    if (style === "grid") {
+      el.setAttribute("aria-label", footprint.lines.join("\n"));
+      footprint.lines.forEach((line, row) => {
+        [...line].forEach((character, column) => {
+          if (character === " ") return;
+          const glyph = document.createElement("span");
+          glyph.className = "grid-glyph";
+          glyph.textContent = character;
+          glyph.style.left = `${column * config.cellWidth}px`;
+          glyph.style.top = `${row * config.cellHeight}px`;
+          el.append(glyph);
+        });
+      });
+    } else {
+      el.textContent = footprint.lines.join("\n");
+    }
     el.addEventListener("pointerdown", startObjectPointer);
     el.addEventListener("dblclick", startInlineEdit);
     if (isSelected(object.id) && selectedIds.length === 1) {

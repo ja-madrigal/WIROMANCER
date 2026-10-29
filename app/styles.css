@@ -537,7 +537,17 @@ select {
 
 /* Structural ASCII needs a font with stable edge bearings at the 8px cell size. */
 .object.style-grid {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-family: var(--wire-mono);
+}
+
+.grid-glyph {
+  position: absolute;
+  width: var(--cell-w);
+  height: var(--cell-h);
+  line-height: var(--cell-h);
+  pointer-events: none;
+  transform: scaleX(1.6);
+  transform-origin: left top;
 }
 
 .object.selected {
