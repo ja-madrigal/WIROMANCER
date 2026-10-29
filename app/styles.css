@@ -535,6 +535,11 @@ select {
   line-height: var(--font-caption-line-height);
 }
 
+/* Structural ASCII needs a font with stable edge bearings at the 8px cell size. */
+.object.style-grid {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
 .object.selected {
   background: rgba(47, 103, 233, 0.08);
   outline: 2px solid var(--blue);
