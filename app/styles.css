@@ -1,16 +1,27 @@
 :root {
-  --bg: #f8f8f5;
-  --paper: #fffefd;
-  --line: #e4e1d9;
-  --line-strong: #d1cec4;
-  --ink: #292927;
-  --muted: #7a7770;
+  /* GADS foundation: neutral surfaces, 8px rhythm, restrained semantic color. */
+  --bg: #f4f4f2;
+  --paper: #fafafa;
+  --surface: #fffefd;
+  --surface-muted: #f1f1ef;
+  --line: #dededb;
+  --line-strong: #c9c9c5;
+  --ink: #252525;
+  --muted: #73736f;
+  --subtle: #9a9a95;
   --blue: #2f67e9;
   --blue-soft: rgba(47, 103, 233, 0.1);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
   --cell-w: 8px;
   --cell-h: 8px;
   --mono: "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
-  --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --sans: "General Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 * {
@@ -28,9 +39,11 @@
 
 body {
   margin: 0;
-  background: #0c0c0c;
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--sans);
+  font-size: 14px;
+  line-height: 24px;
   height: 100vh;
   overflow: hidden;
 }
@@ -58,7 +71,7 @@ select {
 .sidebar,
 .panel,
 .status-bar {
-  background: #fbfaf8;
+  background: var(--paper);
   border-color: var(--line);
 }
 
@@ -101,7 +114,7 @@ select {
   height: 32px;
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: white;
+  background: var(--surface);
   color: var(--ink);
   font-family: var(--mono);
   font-size: 12px;
@@ -215,13 +228,13 @@ select {
   position: sticky;
   top: 0;
   z-index: 1;
-  padding: 18px 14px 20px;
-  background: #fbfaf8;
+  padding: var(--space-3) 14px var(--space-4);
+  background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
   font-size: 16px;
   font-weight: 650;
-  letter-spacing: -0.2px;
+  line-height: 24px;
 }
 
 .icon-button {
@@ -257,7 +270,7 @@ select {
 }
 
 .tool-section {
-  padding: 8px 8px 12px;
+  padding: var(--space-2) var(--space-2) var(--space-3);
 }
 
 .tool-section h2,
@@ -266,7 +279,7 @@ select {
   color: var(--muted);
   font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0;
+  line-height: 20px;
   text-transform: uppercase;
 }
 
@@ -289,11 +302,12 @@ select {
   cursor: pointer;
   font-family: var(--sans);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
+  line-height: 24px;
 }
 
 .tool:hover {
-  background: #efede8;
+  background: var(--surface-muted);
   color: var(--ink);
 }
 
@@ -334,7 +348,7 @@ select {
   padding: 8px;
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: rgba(251, 250, 248, 0.94);
+  background: rgba(250, 250, 250, 0.94);
   box-shadow: 0 10px 30px rgba(41, 41, 39, 0.12);
 }
 
@@ -349,7 +363,7 @@ select {
   height: 32px;
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: white;
+  background: var(--surface);
   color: var(--ink);
   cursor: pointer;
   font-family: var(--mono);
@@ -375,7 +389,7 @@ select {
   height: 32px;
   border: 1px solid var(--line);
   border-radius: 4px;
-  background: white;
+  background: var(--surface);
   color: var(--ink);
   font-family: var(--mono);
   font-size: 11px;
@@ -530,7 +544,7 @@ select {
   gap: 14px;
   padding: 0 18px;
   border-top: 1px solid var(--line);
-  background: #fbfaf8;
+  background: var(--paper);
   color: var(--muted);
   font-family: var(--mono);
   font-size: 12px;
@@ -570,7 +584,7 @@ select {
   min-height: 0;
   border: 1px solid rgba(209, 206, 196, 0.82);
   border-radius: 16px;
-  background: #fbfaf8;
+  background: var(--surface);
   box-shadow: 0 12px 30px rgba(41, 41, 39, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
   overflow: hidden;
 }
@@ -589,8 +603,9 @@ select {
   color: var(--ink);
   font-family: var(--sans);
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0;
+  line-height: 24px;
   text-transform: none;
 }
 
@@ -620,11 +635,12 @@ select {
   cursor: grab;
   font-family: var(--sans);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 400;
+  line-height: 24px;
 }
 
 .layer:hover {
-  background: #efede8;
+  background: var(--surface-muted);
 }
 
 .layer.active {
@@ -710,7 +726,7 @@ select {
   color: var(--muted);
   font-family: var(--sans);
   font-size: 14px;
-  line-height: 1.7;
+  line-height: 24px;
 }
 
 .inspector {
@@ -726,8 +742,9 @@ select {
 .inspector span {
   color: var(--muted);
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0;
+  line-height: 20px;
   text-transform: uppercase;
 }
 
