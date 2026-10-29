@@ -400,6 +400,12 @@
   }
 
   function renderedFootprintSize(footprint, style = "body") {
+    if (style === "grid") {
+      return {
+        width: footprint.width * config.cellWidth,
+        height: footprint.height * config.cellHeight
+      };
+    }
     const measurer = renderedFootprintSize.node || document.createElement("div");
     if (!renderedFootprintSize.node) {
       measurer.className = "object-measurer";
