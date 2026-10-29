@@ -74,7 +74,7 @@
 body {
   margin: 0;
   background: var(--bg);
-  color: var(--ink);
+  color: #141515;
   font-family: var(--sans);
   font-size: 14px;
   line-height: 24px;
@@ -324,7 +324,7 @@ select {
   border: 0;
   border-radius: 4px;
   background: #fafafa;
-  color: var(--ink);
+  color: #141515;
   text-align: left;
   cursor: pointer;
   font-family: var(--sans);
@@ -335,18 +335,18 @@ select {
 
 .tool:hover {
   background: #dfe1e2;
-  color: var(--ink);
+  color: #141515;
 }
 
 .tool.active {
-  background: #141515;
-  color: #d0ff00;
+  background: #909598;
+  color: #141515;
   font-size: 14px;
   font-weight: 400;
 }
 
 .tool-icon {
-  color: var(--muted);
+  color: #141515;
   opacity: 1;
   flex: 0 0 16px;
   width: 16px;
@@ -359,7 +359,7 @@ select {
 }
 
 .tool.active .tool-icon {
-  color: #d0ff00;
+  color: #141515;
 }
 
 .tool-rail {
@@ -370,7 +370,7 @@ select {
 }
 
 .tool.active .tool-rail {
-  background: #d0ff00;
+  background: transparent;
 }
 
 .tool-icon-image {
