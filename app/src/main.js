@@ -440,15 +440,37 @@
     if (style === "grid") {
       el.setAttribute("aria-label", footprint.lines.join("\n"));
       footprint.lines.forEach((line, row) => {
+        let textStart = 0;
+        let textRun = "";
+        const flushText = () => {
+          if (!textRun.trim()) {
+            textRun = "";
+            return;
+          }
+          const text = document.createElement("span");
+          text.className = "grid-glyph-text";
+          text.textContent = textRun;
+          text.style.left = `${textStart * config.cellWidth}px`;
+          text.style.top = `${row * config.cellHeight}px`;
+          el.append(text);
+          textRun = "";
+        };
         [...line].forEach((character, column) => {
-          if (character === " ") return;
+          const isBorderGlyph = /[─│┌┐└┘├┤┬┴┼]/.test(character);
+          if (!isBorderGlyph) {
+            if (!textRun) textStart = column;
+            textRun += character;
+            return;
+          }
+          flushText();
           const glyph = document.createElement("span");
-          glyph.className = "grid-glyph";
+          glyph.className = "grid-glyph grid-glyph-wide";
           glyph.textContent = character;
           glyph.style.left = `${column * config.cellWidth}px`;
           glyph.style.top = `${row * config.cellHeight}px`;
           el.append(glyph);
         });
+        flushText();
       });
     } else {
       el.textContent = footprint.lines.join("\n");

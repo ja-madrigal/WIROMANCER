@@ -546,6 +546,16 @@ select {
   height: var(--cell-h);
   line-height: var(--cell-h);
   pointer-events: none;
+}
+
+.grid-glyph-text {
+  position: absolute;
+  line-height: var(--cell-h);
+  white-space: pre;
+  pointer-events: none;
+}
+
+.grid-glyph-wide {
   transform: scaleX(1.6);
   transform-origin: left top;
 }
