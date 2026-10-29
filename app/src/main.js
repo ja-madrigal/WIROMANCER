@@ -211,17 +211,6 @@
     }
   }
 
-  function resetToStarter() {
-    if (!window.confirm("Reset the canvas to the starter document? This will clear your current work.")) return;
-    saveHistory();
-    localStorage.removeItem(storageKeys.autosave);
-    objects = sample.starterDocument(tools.createObject, uid);
-    selectOnly(objects.at(-1)?.id || null);
-    currentDocumentName = "Untitled";
-    setTool("select");
-    saveAutosave();
-  }
-
   async function saveDocumentFile() {
     const snapshot = documentSnapshot(currentDocumentName);
     const blob = new Blob([JSON.stringify(snapshot, null, 2)], { type: "application/json" });
@@ -986,7 +975,6 @@
   document.querySelector("#redoBtn").addEventListener("click", redo);
   document.querySelector("#saveDocumentBtn").addEventListener("click", saveDocumentFile);
   document.querySelector("#loadDocumentBtn").addEventListener("click", () => importJsonInput.click());
-  document.querySelector("#resetDocumentBtn").addEventListener("click", resetToStarter);
   importJsonInput.addEventListener("change", () => importJsonDocument(importJsonInput.files[0]));
   document.querySelector("#zoomOutBtn").addEventListener("click", () => setZoom(zoom - 0.25));
   document.querySelector("#zoomInBtn").addEventListener("click", () => setZoom(zoom + 0.25));
