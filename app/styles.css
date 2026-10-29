@@ -45,6 +45,7 @@
   --font-caption-weight: 400;
   --font-caption-line-height: 20px;
   --mono: var(--sans);
+  --brand-mono: "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   --wire-mono: "Share Tech Mono", "SF Mono", "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   --sans: "General Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
@@ -215,7 +216,7 @@ select {
 .ascii-title {
   margin: 0;
   color: var(--blue);
-  font-family: var(--mono);
+  font-family: var(--brand-mono);
   font-size: clamp(10px, 1.35vw, 16px);
   font-weight: 800;
   line-height: 1.05;
