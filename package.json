@@ -1,0 +1,10 @@
+{
+  "name": "wiromancer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A funky ASCII wireframe editor that exports clean Markdown.",
+  "scripts": {
+    "check": "node --check app/src/config.js && node --check app/src/components.js && node --check app/src/tools.js && node --check app/src/ascii.js && node --check app/src/sample.js && node --check app/src/main.js",
+    "test": "node tests/ascii.test.js && node tests/components.test.js"
+  }
+}

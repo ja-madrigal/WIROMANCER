@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wiromancer</title>
+    <link rel="stylesheet" href="styles.css?v=20260815-component-registry">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="document-actions" aria-label="Document controls">
+          <input class="document-name" id="documentName" type="text" aria-label="Document name" value="Untitled">
+          <span class="save-state" id="saveState" aria-live="polite">Saved</span>
+          <select class="document-select" id="documentSelect" aria-label="Saved documents">
+            <option value="">Saved documents</option>
+          </select>
+          <button class="doc-button" id="saveDocumentBtn" type="button">Save</button>
+          <button class="doc-button" id="loadDocumentBtn" type="button">Load</button>
+          <button class="doc-button" id="resetDocumentBtn" type="button">Reset</button>
+          <button class="doc-button" id="exportJsonBtn" type="button">Export JSON</button>
+          <button class="doc-button" id="importJsonBtn" type="button">Import JSON</button>
+        </div>
+        <pre class="ascii-title" aria-label="Wiromancer">░█░█░▀█▀░█▀▄░█▀█░█▄█░█▀█░█▀█░█▀▀░█▀▀░█▀▄
+░█▄█░░█░░█▀▄░█░█░█░█░█▀█░█░█░█░░░█▀▀░█▀▄
+░▀░▀░▀▀▀░▀░▀░▀▀▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀</pre>
+        <button class="icon-button" id="clearBtn" title="Clear canvas" aria-label="Clear canvas">⌫</button>
+      </header>
+
+      <aside class="sidebar" aria-label="Tools">
+        <div class="tool-scroll">
+          <div class="rail-heading">UI Elements</div>
+
+          <section class="tool-section">
+            <h2>Basics</h2>
+            <div class="tool-list" id="basicTools"></div>
+          </section>
+
+          <section class="tool-section">
+            <h2 class="sr-only">UI Elements</h2>
+            <div class="tool-list" id="uiTools"></div>
+          </section>
+
+          <section class="tool-section">
+            <h2>Draw</h2>
+            <div class="tool-list" id="drawTools"></div>
+          </section>
+        </div>
+      </aside>
+
+      <main class="stage-wrap">
+        <div class="canvas-viewport" id="viewport">
+          <div class="canvas-scaler" id="canvasScaler">
+            <div class="canvas-grid" id="canvas" role="application" aria-label="ASCII wireframe canvas"></div>
+          </div>
+        </div>
+        <div class="mini-actions" aria-label="Canvas actions">
+          <button class="icon-button" id="undoBtn" title="Undo" aria-label="Undo">↶</button>
+          <button class="icon-button" id="redoBtn" title="Redo" aria-label="Redo">↷</button>
+          <button class="icon-button" id="duplicateBtn" title="Duplicate selected" aria-label="Duplicate selected">⧉</button>
+          <button class="icon-button" id="deleteBtn" title="Delete selected" aria-label="Delete selected">⌦</button>
+          <button class="icon-button active" id="gridBtn" title="Toggle grid" aria-label="Toggle grid">▦</button>
+          <span class="toolbar-divider" aria-hidden="true"></span>
+          <button class="icon-button" id="zoomOutBtn" title="Zoom out" aria-label="Zoom out">−</button>
+          <button class="zoom-readout" id="zoomResetBtn" type="button" title="Reset zoom" aria-label="Reset zoom">125%</button>
+          <button class="icon-button" id="zoomInBtn" title="Zoom in" aria-label="Zoom in">+</button>
+          <span class="toolbar-divider" aria-hidden="true"></span>
+          <button class="icon-button" id="alignLeftBtn" title="Align left" aria-label="Align left">⇤</button>
+          <button class="icon-button" id="alignTopBtn" title="Align top" aria-label="Align top">⇡</button>
+          <button class="icon-button" id="alignBottomBtn" title="Align bottom" aria-label="Align bottom">⇣</button>
+          <button class="icon-button" id="alignRightBtn" title="Align right" aria-label="Align right">⇥</button>
+          <button class="icon-button" id="distributeHorizontalBtn" title="Distribute horizontally" aria-label="Distribute horizontally">↔</button>
+          <button class="icon-button" id="distributeVerticalBtn" title="Distribute vertically" aria-label="Distribute vertically">↕</button>
+          <button class="copy-button" id="copyBtn" type="button">▣ Copy Markdown</button>
+        </div>
+      </main>
+
+      <aside class="panel" aria-label="Layers and details">
+        <section class="panel-section layers-panel">
+          <div class="panel-heading">
+            <h2>Layers</h2>
+            <span id="layerCount">0</span>
+          </div>
+          <div class="layers" id="layers"></div>
+        </section>
+
+        <section class="panel-section details-panel">
+          <div class="panel-heading">
+            <h2>Details</h2>
+          </div>
+          <div class="inspector-empty" id="emptyInspector">Select a layer on the canvas or in the list to edit its properties.</div>
+          <form class="inspector" id="inspector" hidden>
+            <label>
+              <span>Name</span>
+              <input id="fieldName" type="text">
+            </label>
+            <label>
+              <span>Text</span>
+              <input id="fieldText" type="text">
+            </label>
+            <div class="field-grid">
+              <label>
+                <span>X</span>
+                <input id="fieldX" type="number" min="1">
+              </label>
+              <label>
+                <span>Y</span>
+                <input id="fieldY" type="number" min="1">
+              </label>
+              <label>
+                <span>Width</span>
+                <input id="fieldW" type="number" min="1">
+              </label>
+              <label>
+                <span>Height</span>
+                <input id="fieldH" type="number" min="1">
+              </label>
+            </div>
+          </form>
+        </section>
+      </aside>
+
+      <div class="status-bar">
+        <span class="tool-pill" id="statusTool">SELECT</span>
+        <span id="cursorStatus">Ln 1, Col 1</span>
+        <span class="canvas-size">400×300 · 8px grid</span>
+        <span id="copyStatus" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <textarea id="clipboardBuffer" aria-hidden="true" tabindex="-1"></textarea>
+    <input id="importJsonInput" type="file" accept=".wiromancer.json,application/json" hidden>
+    <script src="src/config.js?v=20260815-component-registry"></script>
+    <script src="src/components.js?v=20260815-component-registry"></script>
+    <script src="src/tools.js?v=20260815-component-registry"></script>
+    <script src="src/ascii.js?v=20260815-component-registry"></script>
+    <script src="src/sample.js?v=20260815-component-registry"></script>
+    <script src="src/main.js?v=20260815-component-registry"></script>
+  </body>
+</html>
